@@ -17,17 +17,17 @@ import java.util.ArrayList;
 
 public class EarthquakeAdapter extends ArrayAdapter<Earthquakes> {
 
-    public EarthquakeAdapter(Activity context, ArrayList<Earthquakes> earthquakes){
-        super(context, 0,earthquakes);
+    public EarthquakeAdapter(Activity context, ArrayList<Earthquakes> earthquakes) {
+        super(context, 0, earthquakes);
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        View earthquakeListView =  convertView;
+        View earthquakeListView = convertView;
 
-        if (earthquakeListView == null){
+        if (earthquakeListView == null) {
             earthquakeListView = LayoutInflater.from(getContext()).inflate(R.layout.list_quake, parent, false);
         }
 
@@ -44,6 +44,6 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquakes> {
         timeTextView.setText(currentPosition.getmTime());
 
 
-        return  earthquakeListView;
+        return earthquakeListView;
     }
 }
