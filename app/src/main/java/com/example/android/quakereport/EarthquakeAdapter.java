@@ -17,7 +17,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+
+
 public class EarthquakeAdapter extends ArrayAdapter<Earthquakes> {
+
+    private static final String LOCATION_SEPARATOR = " of ";
 
     public EarthquakeAdapter(Activity context, ArrayList<Earthquakes> earthquakes) {
         super(context, 0, earthquakes);
@@ -39,8 +43,41 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquakes> {
         TextView magnitudeTextView = (TextView) earthquakeListView.findViewById(R.id.magnitude);
         magnitudeTextView.setText(currentPosition.getmMagnitude());
 
-        TextView placeTextView = (TextView) earthquakeListView.findViewById(R.id.place);
-        placeTextView.setText(currentPosition.getmPlace());
+
+        //Stored the place's value at current Position
+        String originalLocation = currentPosition.getmPlace();
+        //Created two String Variable
+        String primaryLocation;
+        String locationOffset;
+
+        if (originalLocation.contains(LOCATION_SEPARATOR)) {
+            //Splited a Place String in the form of two array based on the  {@link LOCATION_SEPARATOR}
+            String[] parts = originalLocation.split(LOCATION_SEPARATOR);
+            /**
+             * Saved the first part to the locationOffset
+             */
+
+            locationOffset = parts[0] + LOCATION_SEPARATOR;
+            /**
+             * Saved the second part to the {@link primaryLocation}
+             */
+
+            primaryLocation = parts[1];
+        } else {
+            /**
+             * Stored the default value
+             */
+            locationOffset = getContext().getString(R.string.near_the);
+            primaryLocation = originalLocation;
+        }
+
+        TextView primaryLocationView = (TextView) earthquakeListView.findViewById(R.id.place1);
+        primaryLocationView.setText(locationOffset);
+
+        TextView locationOffsetView = (TextView) earthquakeListView.findViewById(R.id.place2);
+        locationOffsetView.setText(primaryLocation);
+
+
 
         // Create a new Date object from the time of the earthquake
         Date dateObject = new Date(currentPosition.getmTime());
