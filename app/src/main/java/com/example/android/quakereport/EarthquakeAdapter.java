@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,9 +40,11 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquakes> {
 
         Earthquakes currentPosition = getItem(position);
 
+        Double magg = new Double(currentPosition.getmMagnitude());
 
         TextView magnitudeTextView = (TextView) earthquakeListView.findViewById(R.id.magnitude);
-        magnitudeTextView.setText(currentPosition.getmMagnitude());
+        String formatMag = formatMagnitude(magg);
+        magnitudeTextView.setText(formatMag);
 
 
         //Stored the place's value at current Position
@@ -114,5 +117,10 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquakes> {
     private String formatTime(Date dateObject) {
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
         return timeFormat.format(dateObject);
+    }
+
+    private String formatMagnitude(Double mag){
+        DecimalFormat formatter = new DecimalFormat("0.00");
+        return formatter.format(mag);
     }
 }
